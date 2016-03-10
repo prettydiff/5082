@@ -2,7 +2,7 @@
 
 ## Summary
 
-NPM issue will break your repository and there is absolutely nothing you can do about except republish.  This code automates detection and resolution.
+NPM issue #5082 will break your repository and there is absolutely nothing you can do about except republish.  This code automates detection and resolution.  For background read the issue: https://github.com/npm/npm/issues/5082
 
 ## Installation
 
