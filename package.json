@@ -1,0 +1,33 @@
+{
+    "author"         : {
+        "email": "info@prettydiff.com",
+        "name" : "Austin Cheney",
+        "url"  : "http://prettydiff.com/"
+    },
+    "bugs"           : {
+        "email": "info@prettydiff.com",
+        "url"  : "https://github.com/prettydiff/5082/issues"
+    },
+    "description"    : "Automated mitigation for NPM issue #5082. ",
+    "homepage"       : "http://prettydiff.com/",
+    "keywords"       : [
+        "npm",
+        "5082",
+        "fix",
+        "stability"
+    ],
+    "license"        : "MIT",
+    "main"           : "5082.js",
+    "maintainers"    : [
+        {
+            "email": "info@prettydiff.com",
+            "name" : "austincheney"
+        }
+    ],
+    "name"           : "5082",
+    "repository"     : {
+        "type": "git",
+        "url" : "https://github.com/prettydiff/5082"
+    },
+    "version"        : "1.0.0"
+}
