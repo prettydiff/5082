@@ -47,7 +47,7 @@
             var rmcmd = (path.sep === "\\")
                 ? "rmdir /Q /S "
                 : "rm -rf ";
-            child(cmd + packageName + "5082" + path.sep + "node_modules", function a5082_removedir_callback(rmerror, stdout, stderr) {
+            child(rmcmd + packageName + "5082" + path.sep + "node_modules", function a5082_removedir_callback(rmerror, stdout, stderr) {
                 if (loop === 3) {
                     console.log("Error: recursive limit hit.");
                     console.log("Failed at task: npm install " + packageName);
@@ -69,6 +69,7 @@
                     loop = 0;
                     mkdir(packageName + "5082");
                 }
+                return stdout;
             });
         },
         publish        = function a5082_publish() {
@@ -94,6 +95,7 @@
                     loop = 0;
                     mkdir(packageName + "5082");
                 }
+                return stdout;
             });
         },
         writeFile      = function a5082_writeFile(fileName, fileData) {
@@ -124,7 +126,7 @@
                     }
                 });
         },
-        readFile       = function a5082_readPackageJson(file, next) {
+        readFile       = function a5082_readFile(file, next) {
             fs
                 .readFile(file, {
                     encoding: "utf8"
@@ -152,6 +154,15 @@
                 patch = 0,
                 str   = "";
             fs.readdir(dirpath, function a5082_readdir_callback(readdirError, files) {
+                var callbackRead = function a5082_readFilesFromConfig(fileName, fileData) {
+                    fileData = fileData.replace(versionSearch, nextVersion);
+                    if (config.beautify === true) {
+                        config.options.source = fileData;
+                        fileData              = prettydiff.api(config.options)[0];
+                    }
+                    console.log("Writing file " + config.files[config.files.length - 1] + " from the optional file list");
+                    writeFile(fileName, fileData);
+                };
                 if (loop === 3) {
                     console.log("Error: recursive limit hit.");
                     console.log("Failed at task: fs.readdir('" + packageName + "')");
@@ -162,7 +173,7 @@
                     console.log(readdirError);
                     console.log("");
                     console.log("Trying to read package directory again...");
-                    a5082_readPackageJson(readdir);
+                    a5082_readdir(dirpath);
                 } else {
                     loop = 0;
                     for (a = files.length - 1; a > -1; a -= 1) {
@@ -192,15 +203,7 @@
                         console.log("No provided options.");
                     } else {
                         do {
-                            readFile(config.files[config.files.length - 1], function a5082_readFilesFromConfig(fileName, fileData) {
-                                fileData = fileData.replace(versionSearch, nextVersion);
-                                if (config.beautify === true) {
-                                    config.options.source = fileData;
-                                    fileData              = prettydiff.api(config.options)[0];
-                                }
-                                console.log("Writing file " + config.files[config.files.length - 1] + " from the optional file list");
-                                writeFile(fileName, fileData);
-                            });
+                            readFile(config.files[config.files.length - 1], callbackRead);
                             config
                                 .files
                                 .pop();
@@ -242,6 +245,7 @@
                         return fileName;
                     });
                 }
+                return stdout;
             });
         },
         getOptions     = function a5082_getOptions(file) {
@@ -260,7 +264,7 @@
                         console.log(err5082PackageJson);
                         console.log("");
                         console.log("Trying to read 5082/package.json again...");
-                        a5082_readPackageJson("package.json");
+                        a5082_getOptions("package.json");
                     } else {
                         loop        = 0;
                         localConfig = JSON.parse(dump);
