@@ -32,12 +32,12 @@ There are three supported options:
 6. fs.readFile("package.json") gather version and main
 7. fs.readdir(packageName) see if main file is present
 8. If main file is present then remove ../packageName5082 directory and exit
-8. If main file is absent the bump version number in package.json
-9. Bump the version number in other specified files and write them to disk
-10. Optionally beautify package.json before writing to disk
-11. Write package.json to disk
-12. publish package
-13. run this application again recursively (let's hope you get a 5082 error twice in a row)
+9. If main file is absent the bump version number in package.json
+10. Bump the version number in other specified files and write them to disk
+11. Optionally beautify package.json before writing to disk
+12. Write package.json to disk
+13. publish package
+14. run this application again recursively (let's hope you don't get a 5082 error twice in a row)
 
 ## License
 

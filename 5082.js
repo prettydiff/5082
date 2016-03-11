@@ -44,7 +44,10 @@
             return;
         },
         removedir      = function a5082_removedir(start) {
-            child("rm -rf " + packageName + "5082" + path.sep + "node_modules", function a5082_removedir_callback(rmerror, stdout, stderr) {
+            var rmcmd = (path.sep === "\\")
+                ? "rmdir /Q /S "
+                : "rm -rf ";
+            child(cmd + packageName + "5082" + path.sep + "node_modules", function a5082_removedir_callback(rmerror, stdout, stderr) {
                 if (loop === 3) {
                     console.log("Error: recursive limit hit.");
                     console.log("Failed at task: npm install " + packageName);
@@ -54,13 +57,13 @@
                     loop += 1;
                     console.log(rmerror);
                     console.log("");
-                    console.log("Trying rm again...");
+                    console.log("Trying remove directory again...");
                     a5082_removedir();
                 } else if (typeof stderr === "string" && stderr.length > 0 && stderr.indexOf("No description") < 0) {
                     loop += 1;
                     console.log(stderr);
                     console.log("");
-                    console.log("Trying rm again...");
+                    console.log("Trying remove directory again...");
                     a5082_removedir();
                 } else if (start === true) {
                     loop = 0;
