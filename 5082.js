@@ -34,11 +34,11 @@
                 .split(path.sep);
             return arr[arr.length - 1];
         }()),
+        filecounts     = [0, 0],
         prettydiff     = {},
         currentVersion = "",
         nextVersion    = "",
         versionSearch  = new RegExp(currentVersion, "g"),
-        packageWritten = false,
         packageJson    = {},
         mkdir          = function a5082_mkdir_declaration() {
             return;
@@ -114,13 +114,9 @@
                         a5082_writeFile(fileName, fileData);
                     } else {
                         loop = 0;
+                        filecounts[0] += 1;
                         console.log("File " + fileName + " successfully written to disk.");
-                        if (fileName === packageName + path.sep + "package.json") {
-                            packageWritten = true;
-                            if (config.files.length === 0) {
-                                publish();
-                            }
-                        } else if (config.files.length === 0 && packageWritten === true) {
+                        if (filecounts[0] === filecounts[1]) {
                             publish();
                         }
                     }
@@ -275,11 +271,13 @@
                             }
                             if (Array.isArray(localConfig.config5082.files) === true && localConfig.config5082.files.length > 0) {
                                 config.files = localConfig.config5082.files;
+                                filecounts[1] = config.files.length;
                             }
                             if (typeof localConfig.config5082.options === "object") {
                                 config.options = localConfig.config5082.options;
                             }
                         }
+                        filecounts[0] = 0;
                         process.chdir("..");
                         removedir(true);
                     }
