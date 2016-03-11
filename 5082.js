@@ -271,12 +271,12 @@
                             }
                             if (Array.isArray(localConfig.config5082.files) === true && localConfig.config5082.files.length > 0) {
                                 config.files = localConfig.config5082.files;
-                                filecounts[1] = config.files.length;
                             }
                             if (typeof localConfig.config5082.options === "object") {
                                 config.options = localConfig.config5082.options;
                             }
                         }
+                        filecoungs[1] = config.files.length + 1;
                         filecounts[0] = 0;
                         process.chdir("..");
                         removedir(true);
