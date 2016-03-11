@@ -4,15 +4,17 @@
 
 NPM issue #5082 will break your repository and there is absolutely nothing you can do about except republish.  This code automates detection and resolution.  For background read the issue: https://github.com/npm/npm/issues/5082
 
+Tested in production with package **prettydiff** starting with version v1.16.34.  Package is written in vanilla JS works cross-OS.
+
 ## Installation
 
 Make these changes to your project's *package.json*:
 
 * Include 5082 as a *devDependency*
-* Add this path to *scripts.publish* NPM script
+* Add this path to *scripts.publish* NPM script, example: `"publish": "node node_modules/5082/5082.js"`
 * Add options (not required) to a new property *config5082*
 
-Once that is complete run `npm install` within your project to install 5082 as a devDependency
+Once that is complete run `npm install` within your project to install 5082 as a devDependency local to your package.
 
 ## Options
 
