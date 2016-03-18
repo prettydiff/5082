@@ -276,7 +276,7 @@
                                 config.options = localConfig.config5082.options;
                             }
                         }
-                        filecoungs[1] = config.files.length + 1;
+                        filecounts[1] = config.files.length + 1;
                         filecounts[0] = 0;
                         process.chdir("..");
                         removedir(true);
